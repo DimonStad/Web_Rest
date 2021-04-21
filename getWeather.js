@@ -2,8 +2,7 @@ const Requests = require("./Requests/fetch");
 
 module.exports = function (serv) {
 serv.get("/weather/coordinates", (request, result) => {
-    let lat = request.query.lat;
-    let lon = request.query.lon;
+    let { lat, lon } = request.query;
     Requests.getByLogLat(lat, lon)
         .then(data => {
             result.send(data);
