@@ -1,21 +1,33 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const config = require("./config");
-const port = config.port;
-const url = config.url;
 const cors = require("cors");
-const methods = require("./rt/favourites");
-const serv = express();
+const conf = require("./config");
+const weather = require("./rt/weather")
+const favourites = require("./rt/favourites");
 
 
-serv.use(cors());
+const app = express();
+const port = conf.port;
+
+app.use(cors());
+
 mongoose.set("useCreateIndex", true);
-mongoose.connect(url,
-    {useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false})
-    .then((mongoose) => {
-        methods.citiesWeather(serv, mongoose);
-        serv.listen(port, () => {
-            console.log("Success")
+
+async function start () {
+    try {
+        let db = await mongoose.connect(process.env.MONGODB_URL, {useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false})
+
+        app.listen(port, () => {
+            console.log("Server is started...");
         })
-    })
-    .catch(console.log);
+        app.use("/weather", weather);
+
+        favourites.initSchema(db);
+        app.use("/favourites", favourites.router);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+start();
