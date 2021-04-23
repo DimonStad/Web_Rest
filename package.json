@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Tulesha/web-secondSemestr-Server.git"
+    "url": ""
   },
   "keywords": [
     "weather",
@@ -19,9 +19,9 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Tulesha/web-secondSemestr-Server/issues"
+    "url": ""
   },
-  "homepage": "https://github.com/Tulesha/web-secondSemestr-Server#readme",
+  "homepage": "",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
